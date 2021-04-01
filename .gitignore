@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/coletores/driver/chromedriver.exe
+/dados/noticias-covid.json
+/notebooks/dados/noticias-covid.json
+/notebooks/dados/lista-noticias-covid.json
+/notebooks/dados/lista-noticias-full.json
+/notebooks/driver/chromedriver.exe
