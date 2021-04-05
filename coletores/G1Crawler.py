@@ -10,7 +10,7 @@ class CrawlerG1:
     def __init__(self, url):
         self.url = url
         self.feedback = True
-        self.chormeDriverPath= os.path.abspath(os.path.join('.', 'driver')) + ""
+        self.chormeDriverPath = os.path.abspath(os.path.join('.', 'driver'))        
 
     def setChromeDriverPath(self, value):
         self.chormeDriverPath = value
