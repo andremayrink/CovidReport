@@ -11,4 +11,4 @@ Pastas:
 * dados:
     - Dados coletados zipados
 * notebooks:
-    - jupyter notebooks das coletas e provas de conceito
+    - jupyter notebooks das coletas e provas de conceitos
