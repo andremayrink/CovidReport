@@ -1,11 +1,28 @@
 from database.oracleATP import OracleATP
 from utils.jsonutils import JsonUtils
 import datetime as dt
-import os
+import os, sys
 import random
+from utils.datahora import DataHoraUtils
 
 o = OracleATP()
 UFs = ["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"]
+
+def getListaDatas():
+    dias = [0]
+
+    if (len(sys.argv) > 1):
+        d = int(sys.argv[1])
+        if d >= 0:
+            dias = range(0, d)
+        else: dias = range(d + 1, 1)
+
+    datas = []
+    for d in dias:
+        data = dt.datetime.today() + dt.timedelta(days=d)
+        datas.append(data)
+    return datas
+
 def trataData(value):
     if (value):
         try:
@@ -54,31 +71,31 @@ def inserirNoticia(noticia, cursor):
         except Exception as e:
             print("print falha ao inserir notícia:", e)
 
-hoje = dt.datetime(2021,4,6) #dt.datetime.today()
 
-notiticaFileName = "{1}dados/noticias/noticiasCovid_{0}.json".format(hoje.strftime("%d_%m_%Y"), os.environ.get("COVIDREPORT_HOME"))
-print(hoje, notiticaFileName)
+for database in getListaDatas():
+    notiticaFileName = "{1}dados/noticias/noticiasCovid_{0}.json".format(database.strftime("%d_%m_%Y"), os.environ.get("COVIDREPORT_HOME"))
+    print(database, notiticaFileName)
 
-urlsNuvem = [r["URL"] for r in o.executeFetchAll("Select URL from noticias", [], None)]
+    urlsNuvem = [r["URL"] for r in o.executeFetchAll("Select URL from noticias", [], None)]
 
-ju = JsonUtils()
-noticias = ju.carregaDadosJson(notiticaFileName)
+    ju = JsonUtils()
+    noticias = ju.carregaDadosJson(notiticaFileName)
 
-inserir = 0
-ignorar = 0
+    inserir = 0
+    ignorar = 0
 
-cursor = o.getCursor()
+    cursor = o.getCursor()
 
-for noticia in noticias:
-    if not (noticia["url"] in urlsNuvem):
-        inserirNoticia(noticia, cursor)
-        inserir += 1
-        if inserir >= 100:
-            cursor.connection.commit()
-            inserir = 0
-    else: ignorar += 1
+    for noticia in noticias:
+        if not (noticia["url"] in urlsNuvem):
+            inserirNoticia(noticia, cursor)
+            inserir += 1
+            if inserir >= 100:
+                cursor.connection.commit()
+                inserir = 0
+        else: ignorar += 1
 
-cursor.connection.commit()    
-cursor.close()
+    cursor.connection.commit()    
+    cursor.close()
 
-print("ignorados: ", ignorar)
+    print(database, "ignorados: ", ignorar)

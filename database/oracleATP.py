@@ -63,6 +63,11 @@ class OracleATP:
             if not (cursor):
                 c.close()
 
+    def getBlobVar(self, content, cursor):
+        blobvar = cursor.var(cx_Oracle.BLOB)
+        blobvar.setvalue(0,content)
+        return blobvar
+
     def executeOnly(self, sql, params, cursor):
         c = cursor
         if not (c):

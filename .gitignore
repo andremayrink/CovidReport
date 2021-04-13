@@ -133,3 +133,12 @@ dmypy.json
 /notebooks/dados/lista-noticias-covid.json
 /notebooks/dados/lista-noticias-full.json
 /notebooks/driver/chromedriver.exe
+/config/Wallet/README
+/config/Wallet/cwallet.sso
+/config/Wallet/ewallet.p12
+/config/Wallet/keystore.jks
+/config/Wallet/ojdbc.properties
+/config/Wallet/sqlnet.ora
+/config/Wallet/tnsnames.ora
+/config/Wallet/truststore.jks
+/config/config.json
