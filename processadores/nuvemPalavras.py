@@ -22,7 +22,7 @@ class NuvemPalavras:
     
     def pre_processamento_texto(self, corpus):
         corpus_alt = re.findall(r"\w+(?:'\w+)?|[^\w\s]", corpus.lower())
-        corpus_alt = [t for t in corpus_alt if t not in _stopWords]
+        corpus_alt = [t for t in corpus_alt if t not in self._stopWords]
         corpus_alt = [re.sub("\d", "", t) for t in corpus_alt]
         corpus_alt =  [s.translate(str.maketrans('', '', string.punctuation)) for s in corpus_alt]
         corpus_alt = [unidecode(t) for t in corpus_alt]
@@ -30,7 +30,7 @@ class NuvemPalavras:
         return corpus_alt
 
     def setTexto(self, value):
-        self._texto = value
+        self._texto = " ".join(self.pre_processamento_texto(value))
 
     def _color_func(self, word, font_size, position,orientation,random_state=None, **kwargs):
         if word in self._negativeWords:

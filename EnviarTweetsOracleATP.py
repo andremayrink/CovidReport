@@ -3,9 +3,10 @@ from utils.jsonutils import JsonUtils
 import datetime as dt
 import os, sys
 import random
-
+from processadores.nlp import NLP
 o = OracleATP()
 ju = JsonUtils()
+nlp = NLP("")
 
 def getListaDatas():
     dias = [0]
@@ -54,7 +55,8 @@ for database in getListaDatas():
             if t["id"] not in idsNuvem:
                 novo +=1
                 data = getTweetDate(t["data"])
-                sentimento = random.sample(set('PNE'), 1)[0]
+                nlp.setTexto(t["texto"])
+                sentimento = nlp.Score_sentimento()[0]
                 inserirTweet(t["id"], t["texto"], data, sentimento, cursor)
                 commitCount += 1
                 if commitCount >= 100:

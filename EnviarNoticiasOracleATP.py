@@ -4,9 +4,11 @@ import datetime as dt
 import os, sys
 import random
 from utils.datahora import DataHoraUtils
+from processadores.nlp import NLP
 
 o = OracleATP()
 UFs = ["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"]
+nlp = NLP("")
 
 def getListaDatas():
     dias = [0]
@@ -63,14 +65,15 @@ def inserirNoticia(noticia, cursor):
                     UF], cursor)
 
             for cm in noticia["comentarios"]:
+                nlp.setTexto(cm["comentario"])
+                sentimento = nlp.Score_sentimento()[0]
                 o.executeOnly(sqlInsertComentario,
                         [getNext("SQ_COMENTARIOS"),
                         cm["comentario"],
-                        random.sample(set('PNE'), 1)[0],
+                        sentimento,
                         idNoticia], cursor)
         except Exception as e:
             print("print falha ao inserir notícia:", e)
-
 
 for database in getListaDatas():
     notiticaFileName = "{1}dados/noticias/noticiasCovid_{0}.json".format(database.strftime("%d_%m_%Y"), os.environ.get("COVIDREPORT_HOME"))
