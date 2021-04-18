@@ -142,3 +142,4 @@ dmypy.json
 /config/Wallet/truststore.jks
 /config/config.json
 /notebooks
+/instantclient-basic-linux.x64-19.6.0.0.0dbru.zip
