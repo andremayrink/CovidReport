@@ -128,11 +128,10 @@ dmypy.json
 # Pyre type checker
 .pyre/
 /coletores/driver/chromedriver.exe
-/dados/noticias-covid.json
-/notebooks/dados/noticias-covid.json
-/notebooks/dados/lista-noticias-covid.json
-/notebooks/dados/lista-noticias-full.json
-/notebooks/driver/chromedriver.exe
+/dados/*.json
+/notebooks/dados/noticias/*.json
+/notebooks/dados/temp/*.json
+/notebooks/dados/tweets/*.json
 /config/Wallet/README
 /config/Wallet/cwallet.sso
 /config/Wallet/ewallet.p12
@@ -142,3 +141,4 @@ dmypy.json
 /config/Wallet/tnsnames.ora
 /config/Wallet/truststore.jks
 /config/config.json
+/notebooks

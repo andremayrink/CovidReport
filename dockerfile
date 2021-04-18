@@ -12,6 +12,7 @@ COPY ./EnviarNoticiasOracleATP.py /covidReport/EnviarNoticiasOracleATP.py
 COPY ./EnviarTweetsOracleATP.py /covidReport/EnviarTweetsOracleATP.py
 COPY ./preencherNuvemPalavrasOracleATP.py /covidReport/preencherNuvemPalavrasOracleATP.py
 COPY ./preencherSentimentosOracleATP.py /covidReport/preencherSentimentosOracleATP.py
+COPY ./cicloColeta.sh /covidReport/cicloColeta.sh
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV DISPLAY=:99
@@ -38,3 +39,5 @@ ENV COVIDREPORT_HOME=/covidReport/
 ENV PATH=${PATH}:${COVIDREPORT_HOME}
 ENV LD_LIBRARY_PATH=${COVIDREPORT_HOME}database/oracle/instantclient_19_6/
 ENV PATH=${PATH}:${LD_LIBRARY_PATH}
+
+CMD sh /covidReport/cicloColeta.sh
