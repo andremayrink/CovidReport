@@ -1,0 +1,16 @@
+{
+    "tweeter": {
+        "con_key": "**********",
+        "con_sec": "**********",
+        "a_token": "**********",
+        "a_secret": "**********"
+    },
+    "oracle": {
+        "user": "COVIDREPORT",
+        "password": "**********",
+        "databaseName": "covidreport_high",
+        "lib_dir": "/covidReport/database/oracle/instantclient_19_6/",
+        "config_dir": "/covidReport/config/wallet/"
+    },
+    "chromeDriver": "chromedriver"
+}
