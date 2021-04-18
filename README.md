@@ -12,3 +12,13 @@ Pastas:
     - Dados coletados zipados
 * notebooks:
     - jupyter notebooks das coletas e provas de conceito
+    
+# Docker
+O projeto de extração e procesamentos foi estruturado pra ser executado em um containter docker. 
+Para criação da imagem e execução do container utilize os comandos abaixo.
+
+## Criar imagem docker file.
+docker build -t ubuntu/covidreport .
+
+## Criar container docker rodando ciclo de coleta.
+docker run -d -v "C:\Projeto Final\Python\CovidReport\dados":/covidReport/dados -v "C:\Projeto Final\Python\CovidReport\config":/covidReport/config --name covidreport-back ubuntu/covidreport

@@ -6,6 +6,7 @@ from urllib.parse import urlencode
 from time import sleep
 import os
 import datetime as dt
+from utils.configuracoes import Configuracoes
 
 ###
 # UtilsG1: Classe de utilidades para lista de notícias.
@@ -86,6 +87,7 @@ class CrawlerG1:
         self.feedback = True
         if not(os.environ.get("COVIDREPORT_HOME")):
             raise Exception("Variável de ambiente COVIDREPORT_HOME não esta configurada.")
+        self.cfg = Configuracoes();
     
     def setUrlNoticia(self, url):
         self.url = url
@@ -121,7 +123,7 @@ class CrawlerG1:
         options.add_argument("--test-type")
         options.binary_location = ""
         options.headless = True        
-        driver = webdriver.Chrome(executable_path="{0}/coletores/driver/chromedriver".format(os.environ.get("COVIDREPORT_HOME")), options=options)
+        driver = webdriver.Chrome(executable_path="{0}/coletores/driver/{1}".format(os.environ.get("COVIDREPORT_HOME"), self.cfg.config["chromeDriver"]), options=options)
         driver.minimize_window();
         driver.get(self.getUrlComentarios())
         self.waitPageLoaded(driver)          

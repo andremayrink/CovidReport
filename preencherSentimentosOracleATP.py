@@ -58,3 +58,4 @@ for c in listaTweets:
 cursor.connection.commit()
 
 cursor.close()
+print("Preenchimento de sentimentos concluída.\n===================================\n\n")

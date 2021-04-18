@@ -5,6 +5,8 @@ from utils.datahora import DataHoraUtils
 from utils.jsonutils import JsonUtils
 import sys, os
 
+print("Inicializando coleta de tweets...\n===================================")
+
 du = DataHoraUtils()
 cfg = Configuracoes()
 numTweets = 1000 #número de tweets para coletar
@@ -44,3 +46,5 @@ for k in listaTweets.keys():
         if t["id"] not in ids:
             dados.append(t)
     ju.gravarJson(fileName, dados)
+
+print("Coleta de tweets concluída.\n===================================\n\n")

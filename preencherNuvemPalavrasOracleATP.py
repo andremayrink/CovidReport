@@ -54,3 +54,4 @@ for idNoticia in listaIdsNoticas:
         commitCount = 0
 
 cursor.connection.commit()
+print("Geração de núvem de palavras concluída.\n===================================\n\n")

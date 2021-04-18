@@ -4,6 +4,8 @@ import datetime as dt
 import os, sys
 import random
 from processadores.nlp import NLP
+
+print("Inicializando envio de tweets para núvem...\n===================================")
 o = OracleATP()
 ju = JsonUtils()
 nlp = NLP("")
@@ -59,9 +61,11 @@ for database in getListaDatas():
                 sentimento = nlp.Score_sentimento()[0]
                 inserirTweet(t["id"], t["texto"], data, sentimento, cursor)
                 commitCount += 1
+                idsNuvem.append(t["id"])
                 if commitCount >= 100:
                     commitCount = 0
                     cursor.connection.commit()
             else: ignorado += 1
         cursor.connection.commit()
     print("novos:", novo, "ignorados:", ignorado)
+    print("Envio de tweets para núvem concluída.\n===================================\n\n")

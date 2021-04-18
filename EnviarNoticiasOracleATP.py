@@ -6,6 +6,8 @@ import random
 from utils.datahora import DataHoraUtils
 from processadores.nlp import NLP
 
+print("Inicializando envio de notícias para núvem...\n===================================")
+
 o = OracleATP()
 UFs = ["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"]
 nlp = NLP("")
@@ -75,6 +77,39 @@ def inserirNoticia(noticia, cursor):
         except Exception as e:
             print("print falha ao inserir notícia:", e)
 
+def updateNoticia(noticia, cursor):
+    if (noticia["titulo"]):
+        sqlGetIdNoticia = """SELECT ID FROM NOTICIAS N WHERE N.URL = :URL"""
+
+        sqlLimpaComentarios = """DELETE COMENTARIOS WHERE ID_NOTICIA = :ID"""
+        
+        sqlLimpaNPNoticia = """UPDATE NOTICIAS SET NP_COMENTARIOS = NULL WHERE ID = :ID"""
+
+        sqlInsertComentario = """INSERT INTO COMENTARIOS
+        (ID, TEXTO, SENTIMENTO, ID_NOTICIA)
+        VALUES
+        (:ID, :TEXTO, :SENTIMENTO, :ID_NOTICIA)
+        """
+
+        data = trataData(noticia["dataPublicacao"])
+
+        idNoticia = int(o.executeScalar(sqlGetIdNoticia, [noticia["url"]], cursor)["ID"])
+        print(idNoticia, " atualizando...")
+
+        try:
+            o.executeOnly(sqlLimpaComentarios, [idNoticia], cursor)
+            o.executeOnly(sqlLimpaNPNoticia, [idNoticia], cursor)
+            for cm in noticia["comentarios"]:
+                nlp.setTexto(cm["comentario"])
+                sentimento = nlp.Score_sentimento()[0]
+                o.executeOnly(sqlInsertComentario,
+                        [getNext("SQ_COMENTARIOS"),
+                        cm["comentario"],
+                        sentimento,
+                        idNoticia], cursor)
+        except Exception as e:
+            print("print falha ao inserir comentarios:", e)
+
 for database in getListaDatas():
     notiticaFileName = "{1}dados/noticias/noticiasCovid_{0}.json".format(database.strftime("%d_%m_%Y"), os.environ.get("COVIDREPORT_HOME"))
     print(database, notiticaFileName)
@@ -96,9 +131,12 @@ for database in getListaDatas():
             if inserir >= 100:
                 cursor.connection.commit()
                 inserir = 0
-        else: ignorar += 1
+        else: 
+            updateNoticia(noticia, cursor)
+            ignorar += 1
 
     cursor.connection.commit()    
     cursor.close()
 
     print(database, "ignorados: ", ignorar)
+print("Envio de Noticias para núvem concluída.\n===================================\n\n")

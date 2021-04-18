@@ -29,7 +29,7 @@ def trataData(value):
         except:
             return datetime(1900,1,1)
     return datetime(1900,1,1)
-
+print("Inicializando coleta de notívias...\n===================================")
 util = UtislG1()
 jutil = JsonUtils()
 coleta = CrawlerG1("")
@@ -52,23 +52,21 @@ for data in getListaDatas():
     ignorados = 0
     gravar = 0
     for i in range(0,len(dados)):
-        capturar = not ("noticia" in dados[i].keys())
-        capturar = capturar or not (dados[i]["noticia"])
-        if capturar:
-            try:
-                coleta.setUrlNoticia(dados[i]["url"])
-                noticia = coleta.getNoticia()
-                noticia["comentarios"] = coleta.getComentariosNoticia()
-                dados[i].update(noticia)
-                coletados += 1
-                gravar += 1
-                if gravar >= 100:
-                    print(coletados, "coletadas")
-                    gravar = 0
-                    jutil.gravarJson(fileName, dados)
-            except Exception as erro:
-                ignorados += 1
-                print("Erro ao coletar: ", erro)
+        try:
+            coleta.setUrlNoticia(dados[i]["url"])
+            noticia = coleta.getNoticia()
+            noticia["comentarios"] = coleta.getComentariosNoticia()
+            dados[i].update(noticia)
+            coletados += 1
+            gravar += 1
+            if gravar >= 100:
+                print("Noticias coletadas parcial... ", coletados)
+                gravar = 0
+                jutil.gravarJson(fileName, dados)
+        except Exception as erro:
+            ignorados += 1
+            print("Erro ao coletar: ", erro)
 
     jutil.gravarJson(fileName, dados) 
     print("Atualizado: ", fileName, " - ", len(dados), " novas: ", novas)
+print("Coleta de notícias concluída.\n===================================\n\n")
