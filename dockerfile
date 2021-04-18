@@ -12,6 +12,8 @@ COPY ./EnviarNoticiasOracleATP.py /covidReport/EnviarNoticiasOracleATP.py
 COPY ./EnviarTweetsOracleATP.py /covidReport/EnviarTweetsOracleATP.py
 COPY ./preencherNuvemPalavrasOracleATP.py /covidReport/preencherNuvemPalavrasOracleATP.py
 COPY ./preencherSentimentosOracleATP.py /covidReport/preencherSentimentosOracleATP.py
+COPY ./preencherEntidadesNoticiasOracleATP.py /covidReport/preencherEntidadesNoticiasOracleATP.py
+
 COPY ./cicloColeta.sh /covidReport/cicloColeta.sh
 
 ENV DEBIAN_FRONTEND=noninteractive
