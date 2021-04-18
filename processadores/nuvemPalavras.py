@@ -10,9 +10,7 @@ import matplotlib.pyplot as plt
 import os
 
 class NuvemPalavras:
-    _extraStopWords = []
-    _extraStopWords = " ".join([e.lower() for e in _extraStopWords]).split()
-    _stopWords = set(stopwords.words('portuguese') + _extraStopWords)
+    _stopWords = set(stopwords.words('portuguese'))
     _negativeWords = []
 
     def __init__(self, texto):
@@ -41,8 +39,8 @@ class NuvemPalavras:
     def salvarNuvemPalavras(self, nomeArquivo, minWLen=2, col=2):
         _mask = np.array(Image.open(self._imageMask))
         wordcloud = WordCloud(stopwords=self._stopWords, 
-                                width=700, 
-                                height=700, 
+                                width=350, 
+                                height=350, 
                                 mask=_mask,
                                 max_font_size=200, 
                                 max_words=500, 
@@ -50,7 +48,7 @@ class NuvemPalavras:
                                 min_word_length=minWLen,
                                 color_func = self._color_func)
         wordcloud.generate(self._texto)
-        plt.figure(figsize=(10, 10))
+        plt.figure(figsize=(5, 5))
         plt.imshow(wordcloud, interpolation='bilinear')
         plt.axis("off")
         plt.savefig(nomeArquivo)

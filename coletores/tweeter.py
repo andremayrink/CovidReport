@@ -49,7 +49,7 @@ class Tweeter:
             du = DataHoraUtils()
             tweet["data"] = du.datetime_from_utc_to_local(t.created_at)
             key = tweet["data"].strftime("%d_%m_%Y")
-            tweet["data"] = tweet["data"].strftime("%d/%m/%Y %H:%M%S")
+            tweet["data"] = tweet["data"].strftime("%d/%m/%Y %H:%M:%S")
             tweet["texto"] = t.full_text
             tweet["metrics"] = {"retweetado":t.retweet_count,
                                 "favoritado":t.favorite_count}

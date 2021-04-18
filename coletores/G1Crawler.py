@@ -114,11 +114,14 @@ class CrawlerG1:
     def getComentariosNoticia(self):
         if self.feedback: print("carregando comentarios...", self.url)
         options = webdriver.ChromeOptions()
+        options.add_argument("--headless")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")        
         options.add_argument('--ignore-certificate-errors')
         options.add_argument("--test-type")
         options.binary_location = ""
         options.headless = True        
-        driver = webdriver.Chrome(executable_path="{0}/coletores/driver/chromedriver.exe".format(os.environ.get("COVIDREPORT_HOME")), options=options)
+        driver = webdriver.Chrome(executable_path="{0}/coletores/driver/chromedriver".format(os.environ.get("COVIDREPORT_HOME")), options=options)
         driver.minimize_window();
         driver.get(self.getUrlComentarios())
         self.waitPageLoaded(driver)          

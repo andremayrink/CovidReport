@@ -36,7 +36,7 @@ coleta = CrawlerG1("")
 coleta.setFeedback(False)
 
 for data in getListaDatas():
-    fileName = "{1}dados\\noticias\\noticiasCovid_{0}.json".format(data.strftime('%d_%m_%Y'), os.environ.get("COVIDREPORT_HOME"))
+    fileName = "{1}dados/noticias/noticiasCovid_{0}.json".format(data.strftime('%d_%m_%Y'), os.environ.get("COVIDREPORT_HOME"))
     dados = []
     if os.path.exists(fileName):
         dados = jutil.carregaDadosJson(fileName)
@@ -63,10 +63,12 @@ for data in getListaDatas():
                 coletados += 1
                 gravar += 1
                 if gravar >= 100:
+                    print(coletados, "coletadas")
                     gravar = 0
                     jutil.gravarJson(fileName, dados)
-            except:
+            except Exception as erro:
                 ignorados += 1
-                print(dados[i]["url"])
-    jutil.gravarJson(fileName, dados)                        
+                print("Erro ao coletar: ", erro)
+
+    jutil.gravarJson(fileName, dados) 
     print("Atualizado: ", fileName, " - ", len(dados), " novas: ", novas)

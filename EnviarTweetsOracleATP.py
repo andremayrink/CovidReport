@@ -24,7 +24,7 @@ def getListaDatas():
     return datas
 
 def getTweetDate(dtime):
-    new_datetime = dt.datetime.strptime(dtime,'%d/%m/%Y %H:%M%S')
+    new_datetime = dt.datetime.strptime(dtime,'%d/%m/%Y %H:%M:%S')
     return new_datetime
 
 def inserirTweet(id, texto, data, sentimento, c):

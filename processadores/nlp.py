@@ -10,8 +10,7 @@ import os
 class NLP:
     _extraStopWords = []
     _extraStopWords = " ".join([e.lower() for e in _extraStopWords]).split()
-    _stopWords = set(stopwords.words('portuguese') + _extraStopWords)
-    _negativeWords = []
+    _negativeWords = []    
 
     def __init__(self, texto):
         self._nlp = pt_core_news_sm.load()
@@ -21,7 +20,8 @@ class NLP:
         nltk.download('rslp') 
         nltk.download('stopwords')
         nltk.download('punkt')
-    
+        self._stopWords = set(stopwords.words('portuguese') + self._extraStopWords)    
+        
     def _carregarDicionario(self):
         with open("{0}content/SentiLex-flex-PT02_mod3.txt".format(os.environ.get("COVIDREPORT_HOME")), 'r', encoding="utf8") as sentilex:
             for i in sentilex.readlines():
