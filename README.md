@@ -4,7 +4,7 @@ Projeto Final - Pós graduação   Ciencia de dados e Big Data - IEC - PUC Minas
 
 ## O que é o Covid Report?
 
-    O CovidReport é uma ferramenta que fornece um “termômetro” dos sentimentos e do engajamento da população em relação às ações do governo no enfrentamento da pandemia, por meio de notícias coletadas nos principais portais e suas repercussões em comentários e no Twitter gerando reports, dashboards e análises automatizados.
+O CovidReport é uma ferramenta que fornece um “termômetro” dos sentimentos e do engajamento da população em relação às ações do governo no enfrentamento da pandemia, por meio de notícias coletadas nos principais portais e suas repercussões em comentários e no Twitter gerando reports, dashboards e análises automatizados.
 
 ## Componentes
 
